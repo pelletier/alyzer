@@ -1,0 +1,29 @@
+.row-fluid
+  .span12
+    %h1
+      Visualization
+    %p.explain
+      Enjoy your freshly computed stats.
+
+    - if @views.nil?
+      .alert.alert-block.alert-warning
+        You don't have any view yet! Take a few minutes to create some. And relax: it's just map/reduce.
+    - else
+      %h2
+        %span.counter
+          = @views.length
+        views defined in the database
+
+
+- @views.each_with_index do |(key, view), index|
+  - if index.modulo(3) == 0
+    :plain
+      <div class="row-fluid">
+  .span4
+    %a.btn.btn-large.go_view{href:key}
+      %div
+        = key
+  - if index.modulo(3) == 0
+    :plain
+      </div>
+  

@@ -1,0 +1,17 @@
+.row-fluid#welcome
+  .span12
+    .giant
+      %div.counter
+        = @rows
+      rows
+
+  .span12#welcome_buttons
+    .span6
+      %a.btn.btn-success.btn-large{href:"/configuration/"}
+        Configuration
+        %i.icon-wrench
+
+    .span6
+      %a.btn.btn-primary.btn-large{href:"/visualization/"}
+        Data visualization
+        %i.icon-dashboard

@@ -1,0 +1,33 @@
+
+.row-fluid
+  .span12
+    %h1
+      Log in
+
+    - if @error
+      .alert.alert-error.alert-block
+        = @error
+
+    %form.form-horizontal{method:'POST', action:'.'}
+      .control-group
+        %label.control-label{for: "inputUsername"}
+          Username
+        .controls
+          %input{type:"text", name:"inputUsername", placeholder:"username"}
+      .control-group
+        %label.control-label{for: "inputPassword"}
+          Password
+        .controls
+          %input{type:"password", name:"inputPassword", placeholder:"password"}
+      .control-group
+        .controls
+          %input.btn#clear{type:"button", value: "Clear"}
+          %input.btn.btn-primary{type:"submit", value:"Log in"}
+
+- content_for(:js) do
+  :javascript
+    $(document).ready(function(){
+      $("input#clear").click(function(){
+        $("input[name=inputUsername], input[name=inputPassword]").val('');
+      });
+    });

@@ -1,0 +1,53 @@
+!!!
+%html
+  %head
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    %link{href: to_media("stylesheets/bootstrap.min.css"), rel: "stylesheet", type: "text/css"}
+    %link{href: to_media("stylesheets/bootstrap-responsive.min.css"), rel: "stylesheet", type: "text/css"}
+    %link{href: to_media("stylesheets/font-awesome.css"), rel: "stylesheet", type: "text/css"}
+    %link{href: "http://codemirror.net/lib/codemirror.css", rel: "stylesheet", type: "text/css"}
+    %link{href: to_media("stylesheets/base.css"), rel: "stylesheet", type: "text/css"}
+    %title
+      Alyzer
+  %body
+    .navbar
+      .navbar-inner
+        .container
+          %a{class: "brand", href: "/"}
+            Alyzer
+          %ul.nav.pull-right
+            - if authenticated?
+              %li
+                %a
+                  Welcome,
+                  %strong
+                    = session[:user]
+              %li
+                %a{href:"/logout/"}
+                  Logout
+            %li
+              %a#futon{href:@futon_url}
+                Futon
+
+    .container-fluid
+      .row-fluid
+        .offset2.span8
+          .container-fluid
+            - if flash.has?(:error)
+              .alert.alert-box.alert-error
+                = flash[:error]
+            - if flash.has?(:success)
+              .alert.alert-box.alert-success
+                = flash[:success]
+            = yield
+            .row-fluid
+              .span12
+                %footer
+                  Brought to you by
+                  %a{href:"http://pelletier.im/"}
+                    Thomas Pelletier
+
+    %script{src: to_media("javascripts/jquery-1.8.1.min.js")}
+    %script{src: to_media("javascripts/beautify.js")}
+    %script{src: to_media("javascripts/bootstrap.min.js")}
+    = yield_content(:js)

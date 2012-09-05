@@ -1,0 +1,13 @@
+source 'https://rubygems.org'
+
+gem 'bcrypt-ruby'
+gem 'couchrest'
+gem 'foreman'
+gem 'haml'
+gem 'highline'
+gem 'rack-flash3'
+gem 'shotgun'
+gem 'sass'
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'unicorn'

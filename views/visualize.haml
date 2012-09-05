@@ -1,0 +1,40 @@
+.row-fluid
+  .span12
+    %h1
+      = @name
+    %p.explain
+      = "“#{@quote}”"
+    
+    %div#placeholder
+      Please wait, loading...
+
+    .well.actions
+      %a.btn{href:"/configuration/##{@name}"}
+        Edit
+        %i.icon-wrench
+      %a.btn#refresh{href:"#"}
+        Refresh
+        %i.icon-refresh
+
+- content_for(:js) do
+  %script{src: "https://raw.github.com/flot/flot/master/jquery.flot.js"}
+  %script{src: "https://raw.github.com/flot/flot/master/jquery.flot.time.js"}
+  %script{src: to_media("javascripts/visualize.js")}
+
+  :plain
+    <script type="text/javascript">
+      function adapter(rows) { #{@view['adapter']} }
+    </script>
+
+  :javascript
+    function compute() {
+        $("#placeholder").html("Please wait, loading...");
+        visualize("#{@view['widget']}", "#{@name}", #{@view['do_reduce']});
+    }
+
+    $(document).ready(function(){
+      $("a#refresh").click(compute);
+      $(window).resize(compute);
+
+      compute();
+    });

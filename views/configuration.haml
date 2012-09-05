@@ -1,36 +1,3 @@
-.snippet#histogram
-  :plain
-    var data = [];
-    for (var index = 0; index < rows.length; index++) {
-        var item = rows[index];
-        data.push([item['key'], item['value']]);
-    }
-
-    $.plot($("#placeholder"), [data], {
-        series: {
-            bars: {
-                show: true,
-                fill: true
-            }
-        },
-        xaxis: {
-            mode: "time",
-            timeformat: "%y/%m/%d",
-        }
-    });
-
-.snippet#identity
-  :plain
-    function(data) {
-        return data;
-    }
-
-.snippet#counter
-  :plain
-    var value = rows[0]['value'];
-    $("#placeholder").html(value);
-    $("#placeholder").addClass('counter');
-
 .row-fluid
   .span12
     %h1
@@ -91,6 +58,8 @@
                 Graph
               %option{value:"histogram", selected: view['widget'].eql?('histogram') ? 'yes' : nil}
                 Histogram
+              %option{value:"table", selected: view['widget'].eql?('table') ? 'yes' : nil}
+                Table
               %option{value:"custom", selected: view['widget'].eql?('custom') ? 'yes' : nil}
                 Custom
         .span4
@@ -115,6 +84,8 @@
   :javascript
     var editors = {};
     var changed = false;
+    var snippets = {};
+
     function beautify() {
       $(this).find("textarea").each(function(){
         $(this).val(js_beautify($(this).val()));
@@ -144,12 +115,23 @@
       $("form.edit").each(beautify);
       $("form.edit").submit(beautify);
 
+      $.ajax({
+        url: "/snippets/",
+        dataType: "xml",
+        success: function(xml) {
+          $(xml).find("snippet").each(function(){
+            var el = $(this);
+            snippets[el.attr('name')] = el.text();
+          });
+        }
+      });
+
       $("select").change(function(){
         var val = $("select option:selected").val();
         var val = $(this).find("option:selected").val();
         if (val != "custom") {
           changed = true;
-          editors['adapter'].setValue($(".snippet#"+val).html());
+          editors['adapter'].setValue(snippets[val]);
         }
       });
     });

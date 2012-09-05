@@ -216,4 +216,8 @@ class App < Sinatra::Base
     haml :visualize
   end
 
+  get '/snippets/' do
+    return File.read("config/snippets.xml")
+  end
+
 end

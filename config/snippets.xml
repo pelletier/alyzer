@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<snippets>
+
+    <snippet name="table"><![CDATA[
+$("#placeholder").addClass('table');
+var table = $("<table/>").addClass('table table-bordered table-striped');
+table.append($("<thead/>").append($("<tr/>").append("<th>Key</th>").append("<th>Value</th>")));
+for (var index = 0; index < rows.length; index++) {
+    var row = rows[index];
+    table.append($("<tr/>").append($("<td><span class='label label-info'>" + row['key'] + "</span></td><td>" + row['value'] + "</td>")));
+}
+$("#placeholder").html(table);]]></snippet>
+
+    <snippet name="histogram"><![CDATA[
+var data = [];
+for (var index = 0; index < rows.length; index++) {
+    var item = rows[index];
+    data.push([item['key'], item['value']]);
+}
+
+$.plot($("#placeholder"), [data], {
+    series: {
+        bars: {
+            show: true,
+            fill: true
+        }
+    },
+    xaxis: {
+        mode: "time",
+        timeformat: "%y/%m/%d",
+    }
+});]]></snippet>
+
+    <snippet name="identity"><![CDATA[
+return rows;]]></snippet>
+
+    <snippet name="counter"><![CDATA[
+var value = rows[0]['value'];
+$("#placeholder").html(value);
+$("#placeholder").addClass('counter');]]></snippet>
+
+</snippets>

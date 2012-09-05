@@ -42,7 +42,7 @@ $(document).ready(function () {
     $("form.edit").submit(beautify);
 
     $.ajax({
-        url: "/snippets/",
+        url: "/public/snippets.xml",
         dataType: "xml",
         success: function (xml) {
             $(xml).find("snippet").each(function () {

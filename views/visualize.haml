@@ -15,6 +15,10 @@
       %a.btn#refresh{href:"#"}
         Refresh
         %i.icon-refresh
+      %span.label.label-inverse
+        Last update:
+        %span#last_update
+          N/A
 
 - content_for(:js) do
   %script{src: to_media("javascripts/jquery.flot.js")}

@@ -6,6 +6,8 @@ var visualize = (function() {
             dataType: 'jsonp',
             success: function(data) {
                 adapter(data['rows']);
+                var d = new Date();
+                $("#last_update").html(d.toTimeString());
             }
         });
     });

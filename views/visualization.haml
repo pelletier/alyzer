@@ -20,10 +20,10 @@
     :plain
       <div class="row-fluid">
   .span4
-    %a.btn.btn-large.go_view{href:key}
+    %a.btn.btn-large.btn-block{href:key}
       %div
         = key
-  - if index.modulo(3) == 0
+  - if index.modulo(3) == 2 || (@views.length - 1) == index
     :plain
       </div>
   

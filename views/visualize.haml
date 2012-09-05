@@ -17,8 +17,8 @@
         %i.icon-refresh
 
 - content_for(:js) do
-  %script{src: "https://raw.github.com/flot/flot/master/jquery.flot.js"}
-  %script{src: "https://raw.github.com/flot/flot/master/jquery.flot.time.js"}
+  %script{src: to_media("javascripts/jquery.flot.js")}
+  %script{src: to_media("javascripts/jquery.flot.time.js")}
   %script{src: to_media("javascripts/visualize.js")}
 
   :plain

@@ -5,8 +5,12 @@ var snippets = {};
 function beautify() {
     $(this).find("textarea").each(function () {
         $(this).val(js_beautify($(this).val()));
+        var form_name = $(this).closest('form').find('input[name=name]').attr('value');
+        if (editors[form_name] === undefined) {
+            editors[form_name] = {};
+        }
         if ($(this).attr('name') === 'adapter') {
-            editors[$(this).attr('name')] = CodeMirror.fromTextArea(this, {
+            editors[form_name][$(this).attr('name')] = CodeMirror.fromTextArea(this, {
                 lineNumbers: true,
                 onChange: function () {
                     if (!changed) {
@@ -20,7 +24,7 @@ function beautify() {
                 }
             });
         } else {
-            editors[$(this).attr('name')] = CodeMirror.fromTextArea(this, {
+            editors[form_name][$(this).attr('name')] = CodeMirror.fromTextArea(this, {
                 lineNumbers: true
             });
         }
@@ -53,11 +57,11 @@ $(document).ready(function () {
     });
 
     $("select").change(function () {
-        var val = $("select option:selected").val();
         var val = $(this).find("option:selected").val();
         if (val != "custom") {
             changed = true;
-            editors['adapter'].setValue(snippets[val]);
+            var name = $(this).closest('form').find('input[name=name]').attr('value');
+            editors[name]['adapter'].setValue(snippets[val]);
         }
     });
 

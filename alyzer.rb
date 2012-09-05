@@ -57,7 +57,6 @@ class App < Sinatra::Base
 
 
   before do
-    puts session
     if !authenticated? && !request.path_info.eql?('/login/')
       return redirect(to('/login/'))
     end

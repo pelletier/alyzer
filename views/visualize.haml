@@ -29,7 +29,7 @@
   :javascript
     function compute() {
         $("#placeholder").html("Please wait, loading...");
-        visualize("#{@view['widget']}", "#{@name}", #{@view['do_reduce']});
+        visualize("#{@view['widget']}", "#{@name}", #{@view['do_reduce']}, "#{@url}", "#{@database}");
     }
 
     $(document).ready(function(){

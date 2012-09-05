@@ -1,7 +1,7 @@
 var visualize = (function() {
-    return (function(widget, name, reduce) {
+    return (function(widget, name, reduce, couch_url, couch_db) {
         $.ajax({
-            url: "http://localhost:5984/alyzer/_design/alyzer_views/_view/"+name+"?group_level="+(0+reduce)+"&callback=?",
+            url: couch_url+"/"+couch_db+"/_design/alyzer_views/_view/"+name+"?group_level="+(0+reduce)+"&callback=?",
             type: 'get',
             dataType: 'jsonp',
             success: function(data) {

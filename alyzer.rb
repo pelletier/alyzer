@@ -210,6 +210,8 @@ class App < Sinatra::Base
     @name = name
     @quote = QUOTES.sample
     @view = views[name]
+    @url = DB_CONFIG[:url]
+    @database = DB_CONFIG[:db]
 
     haml :visualize
   end

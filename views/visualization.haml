@@ -15,15 +15,15 @@
         views defined in the database
 
 
-- @views.each_with_index do |(key, view), index|
-  - if index.modulo(3) == 0
-    :plain
-      <div class="row-fluid">
-  .span4
-    %a.btn.btn-large.btn-block{href:key}
-      %div
-        = key
-  - if index.modulo(3) == 2 || (@views.length - 1) == index
-    :plain
-      </div>
-  
+- if not@views.nil?
+  - @views.each_with_index do |(key, view), index|
+    - if index.modulo(3) == 0
+      :plain
+        <div class="row-fluid">
+    .span4
+      %a.btn.btn-large.btn-block{href:key}
+        %div
+          = key
+    - if index.modulo(3) == 2 || (@views.length - 1) == index
+      :plain
+        </div>

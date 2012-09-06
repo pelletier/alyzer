@@ -14,60 +14,61 @@
           = @views.length
         views defined in the database
 
-- @views.each do |key, view|
-  .view
-    .row-fluid
-      .span12
-        %h3{id:key}
-          %i.icon-caret-right
-          = key
-          •
-          %a{href:"#{@futon_url}database.html?alyzer/_design/alyzer_views/_view/#{key}"}
-            Edit in Futon
-            %i.icon-external-link
-          •
-          %a{href:"/visualization/#{key}"}
-            View
-            %i.icon-dashboard
-          .pull-right
-            %a.remove{href:"/configuration/delete?name=#{key}"}
-              %i.icon-remove
-
-    %form.edit{method:'POST', action:'edit'}
-      %input{type:'hidden', value:key, name:"name"}
-      .row-fluid
-        .span6
-          %textarea{name: "map"}
-            = view['map']
-        .span6
-          %textarea{name: "reduce"}
-            = view['reduce']
+- if not @views.nil?
+  - @views.each do |key, view|
+    .view
       .row-fluid
         .span12
-          %textarea{name: "adapter"}
-            = view['adapter']
-      .row-fluid
-        .span4
-          %label.select
-            %select.input-small{name:"widget"}
-              %option{value:"identity", selected: view['widget'].eql?('identity') ? 'yes' : nil}
-                Identity
-              %option{value:"counter", selected: view['widget'].eql?('counter') ? 'yes' : nil}
-                Counter
-              %option{value:"graph", selected: view['widget'].eql?('graph') ? 'yes' : nil}
-                Graph
-              %option{value:"histogram", selected: view['widget'].eql?('histogram') ? 'yes' : nil}
-                Histogram
-              %option{value:"table", selected: view['widget'].eql?('table') ? 'yes' : nil}
-                Table
-              %option{value:"custom", selected: view['widget'].eql?('custom') ? 'yes' : nil}
-                Custom
-        .span4
-          %label.checkbox
-            %input{type:"checkbox", name:"do_reduce", value:"true", checked: view['do_reduce'] ? 'yes' : nil}
-            Perform the reduce operation
-        .span4
-          %input.btn.btn-primary.pull-right{type:"submit", value:"Update"}
+          %h3{id:key}
+            %i.icon-caret-right
+            = key
+            •
+            %a{href:"#{@futon_url}database.html?alyzer/_design/alyzer_views/_view/#{key}"}
+              Edit in Futon
+              %i.icon-external-link
+            •
+            %a{href:"/visualization/#{key}"}
+              View
+              %i.icon-dashboard
+            .pull-right
+              %a.remove{href:"/configuration/delete?name=#{key}"}
+                %i.icon-remove
+
+      %form.edit{method:'POST', action:'edit'}
+        %input{type:'hidden', value:key, name:"name"}
+        .row-fluid
+          .span6
+            %textarea{name: "map"}
+              = view['map']
+          .span6
+            %textarea{name: "reduce"}
+              = view['reduce']
+        .row-fluid
+          .span12
+            %textarea{name: "adapter"}
+              = view['adapter']
+        .row-fluid
+          .span4
+            %label.select
+              %select.input-small{name:"widget"}
+                %option{value:"identity", selected: view['widget'].eql?('identity') ? 'yes' : nil}
+                  Identity
+                %option{value:"counter", selected: view['widget'].eql?('counter') ? 'yes' : nil}
+                  Counter
+                %option{value:"graph", selected: view['widget'].eql?('graph') ? 'yes' : nil}
+                  Graph
+                %option{value:"histogram", selected: view['widget'].eql?('histogram') ? 'yes' : nil}
+                  Histogram
+                %option{value:"table", selected: view['widget'].eql?('table') ? 'yes' : nil}
+                  Table
+                %option{value:"custom", selected: view['widget'].eql?('custom') ? 'yes' : nil}
+                  Custom
+          .span4
+            %label.checkbox
+              %input{type:"checkbox", name:"do_reduce", value:"true", checked: view['do_reduce'] ? 'yes' : nil}
+              Perform the reduce operation
+          .span4
+            %input.btn.btn-primary.pull-right{type:"submit", value:"Update"}
 
 
 .row-fluid

@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 
+gem 'activesupport'
 gem 'bcrypt-ruby'
 gem 'couchrest'
 gem 'foreman'
 gem 'haml'
 gem 'highline'
+gem 'ruby-progressbar'
 gem 'rack-flash3'
 gem 'rake'
 gem 'shotgun'

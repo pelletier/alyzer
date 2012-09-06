@@ -91,7 +91,7 @@ def create_doc(day, random, words_list)
 end
 
 
-db = CouchRest.new(db_config[:url]).database!(db_config[:db])
+db = get_db()
 
 
 stop_day = Time.now

@@ -3,7 +3,12 @@
 > Web interface for stats and graphs computed from a CouchDB database.
 
 Alyzer allows you to generate graphs from CouchDB data, and display them in
-a web interface.
+a web interface
+
+
+## Demo
+
+[Demo](http://alyzer-demo.herokuapp.com/)
 
 
 ## Screenshots

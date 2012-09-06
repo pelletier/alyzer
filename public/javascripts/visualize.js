@@ -7,7 +7,7 @@ var visualize = (function() {
         else {
             params['reduce'] = false;
         }
-        console.log(params);
+
         $.ajax({
             url: "/couchdb/" + name,
             type: 'get',

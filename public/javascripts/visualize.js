@@ -1,9 +1,17 @@
 var visualize = (function() {
     return (function(widget, name, reduce) {
+        var params = {};
+        if (reduce) {
+            params['group_level'] = 1;
+        }
+        else {
+            params['reduce'] = false;
+        }
+        console.log(params);
         $.ajax({
             url: "/couchdb/" + name,
             type: 'get',
-            data: { arguments: { group_level: (0+reduce) } },
+            data: { arguments: params},
             dataType: 'json',
             success: function(data) {
                 adapter(data['rows']);

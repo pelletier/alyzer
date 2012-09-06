@@ -11,7 +11,14 @@ require 'yaml'
 $stdout.sync = true
 
 
-DB_CONFIG = YAML.load_file('config/db.yml')
+begin
+  DB_CONFIG = YAML.load_file('config/db.yml')
+rescue Errno::ENOENT
+  DB_CONFIG = {
+    url: ENV['ALYZER_COUCH_URL'],
+    db: ENV['ALYZER_COUCH_DB']
+  }
+end
 
 
 # http://www.combobulate.com/techquotes.php

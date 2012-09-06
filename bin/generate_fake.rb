@@ -41,18 +41,27 @@ words_list = [
 
 
 options = {
-  couch_host: "http://localhost:5984",
-  couch_db: "alyzer",
   start_time: 1.year.ago,
   density: 72 # messages a day
 
 }
 
+def get_db
+  begin
+    db_config = YAML.load_file('config/db.yml')
+  rescue Errno::ENOENT
+    db_config = {
+      url: ENV['ALYZER_COUCH_URL'],
+      db: ENV['ALYZER_COUCH_DB']
+    }
+  end
+  
+  return CouchRest.new(db_config[:url]).database!(db_config[:db])
+end
+
 OptionParser.new do |opts|
   opts.banner = "Usage: generate_fake.rb [options]"
 
-  opts.on("-h", "--host", "CouchDB host") { |v| options[:couch_host] = v }
-  opts.on("-d", "--database", "CouchDB database") { |v| options[:couch_db] = v }
   opts.on("-s", "--start", "Start date. Ruby expression that should evaluate to a date") do |v|
     options[:start_time] = eval(v)
   end
@@ -79,7 +88,7 @@ def create_doc(day, random, words_list)
 end
 
 
-db = CouchRest.new(options[:couch_host]).database!(options[:couch_db])
+db = CouchRest.new(db_config[:url]).database!(db_config[:db])
 
 
 stop_day = Time.now

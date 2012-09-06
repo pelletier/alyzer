@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'active_support/all'
 require 'couchrest'
 require 'optparse'

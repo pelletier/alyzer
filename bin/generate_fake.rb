@@ -91,20 +91,25 @@ def create_doc(day, random, words_list)
 end
 
 
-db = get_db()
-
+puts "Generating documents..."
 
 stop_day = Time.now
 current_day = options[:start_time]
 progress = ProgressBar.create(format: '%a %E |%b>>%i| %p%% %t',
                               total: (stop_day - options[:start_time]).to_i / 86400)
 
+docs = []
+
 while current_day < stop_day
   variation = (options[:density] * 0.1).round
   delta = random.rand(variation)
   (options[:density]-variation+delta).times do
-    db.save_doc(create_doc(current_day, random, words_list))
+    docs << create_doc(current_day, random, words_list)
   end
   current_day += 1.day
   progress.increment
 end
+
+puts "Batch saving documents..."
+
+get_db().bulk_save(docs)

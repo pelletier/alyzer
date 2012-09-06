@@ -10,6 +10,14 @@ a web interface
 
 [Demo](http://alyzer-demo.herokuapp.com/)
 
+* Username: guest
+* Password: guest
+
+Each time a commit is pushed to Alyzer's GitHub repository, a new document
+describing it is added to the demo database. See [GitHub's post-hook
+documentation](https://help.github.com/articles/post-receive-hooks) for more
+information.
+
 
 ## Screenshots
 

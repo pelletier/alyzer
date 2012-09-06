@@ -99,8 +99,8 @@ key and password with all but admin permissions, note it down, and proceed:
 
 4. Set the configuration settings:
 
-    heroku config:add ALYZER_COUCH_URL=https://apikey:apipassword@yourname.cloudant.com
-    heroku config:add ALYZER_COUCH_DB=yourdbname
+    `heroku config:add ALYZER_COUCH_URL=https://apikey:apipassword@yourname.cloudant.com`
+    `heroku config:add ALYZER_COUCH_DB=yourdbname`
 
 5. Create the first user:
 

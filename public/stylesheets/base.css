@@ -166,3 +166,7 @@ div.actions {
 #placeholder.table {
     height: inherit;
 }
+
+.row-fluid.visualize {
+    margin-top: 2em;
+}

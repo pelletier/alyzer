@@ -209,10 +209,14 @@ class App < Sinatra::Base
     @name = name
     @quote = QUOTES.sample
     @view = views[name]
-    @url = DB_CONFIG[:url]
-    @database = DB_CONFIG[:db]
 
     haml :visualize
+  end
+
+  get '/couchdb/:view_name' do |view_name|
+    args = params[:arguments]
+    content_type "application/json"
+    return @db.view("alyzer_views/#{view_name}", args).to_json
   end
 
 end

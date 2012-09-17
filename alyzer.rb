@@ -75,7 +75,7 @@ class App < Sinatra::Base
 
 
   get '/' do
-    @rows = @db.info['doc_count'] - 1
+    @rows = @db.info['doc_count'] - 1 # Don't count the configuration doc.
     haml :index
   end
 
@@ -118,7 +118,25 @@ class App < Sinatra::Base
     haml :configuration
   end
 
-  post '/configuration/edit' do
+  get '/configuration/:name/' do |name|
+    begin
+      doc = @db.get("_design/alyzer_views")
+      views = doc[:views]
+    rescue RestClient::ResourceNotFound
+      flash[:error] = "You haven't defined any view yet!"
+    else
+      if not views.has_key?(name)
+        flash[:error] = "This view does not exist!"
+      else
+        @name = name
+        @view = views[name]
+      end
+    end
+
+    return haml :configure
+  end
+
+  post '/configuration/:name/' do |name|
     begin
       doc = @db.get("_design/alyzer_views")
       views = doc[:views]
@@ -143,7 +161,7 @@ class App < Sinatra::Base
     @db.save_doc(doc)
 
     flash[:success] = "The view was successfully edited."
-    return redirect('/configuration/')
+    return redirect("/configuration/#{name}")
   end
 
   post '/configuration/new' do
@@ -157,7 +175,9 @@ class App < Sinatra::Base
       }
     end
 
-    views[:views][params[:name]] = {
+    name = params[:name]
+
+    views[:views][name] = {
       map: "function(doc) {\n}",
       reduce: "function(key, values, rereduce) {\n}",
       adapter: "function(data) {return data;}",
@@ -166,27 +186,26 @@ class App < Sinatra::Base
     }
 
     @db.save_doc(views)
-    redirect('/configuration/')
+    redirect("/configuration/#{name}/")
   end
 
-  get '/configuration/delete' do
+  get '/configuration/:name/delete' do |name|
     begin
       doc = @db.get("_design/alyzer_views")
       views = doc[:views]
     rescue RestClient::ResourceNotFound
       flash[:error] = "You tried to delete a view, but you don't have any. So weird."
-      return redirect('/configuration/')
+    else
+      if not views.has_key?(name)
+        flash[:error] = "You tried to delete an inexistant view. So weird."
+      else
+        views.delete(name)
+        doc[:views] = views
+        @db.save_doc(doc)
+        flash[:success] = "The view was successfully deleted."
+      end
     end
 
-    if not views.has_key?(params[:name])
-      flash[:error] = "You tried to delete an inexistant view. So weird."
-      return redirect('/configuration/')
-    end
-
-    views.delete(params[:name])
-    doc[:views] = views
-    @db.save_doc(doc)
-    flash[:success] = "The view was successfully deleted."
     return redirect('/configuration/')
   end
 

@@ -170,3 +170,9 @@ div.actions {
 .row-fluid.visualize {
     margin-top: 2em;
 }
+
+
+.btn i {
+    position:relative;
+    top: 0.1em;
+}

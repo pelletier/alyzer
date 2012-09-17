@@ -1,0 +1,71 @@
+.row-fluid
+  .span12
+    %h1
+      = @name
+    %p.explain
+      You are editing a view!
+
+
+
+%form.edit{method:'POST', action:'.'}
+  %input{type:'hidden', value:@name, name:"name"}
+  .row-fluid
+    .span6
+      %textarea{name: "map"}
+        = @view['map']
+    .span6
+      %textarea{name: "reduce"}
+        = @view['reduce']
+  .row-fluid
+    .span12
+      %textarea{name: "adapter"}
+        = @view['adapter']
+  .row-fluid
+    .span4
+      %label.select
+        %select.input-small{name:"widget"}
+          %option{value:"identity", selected: @view['widget'].eql?('identity') ? 'yes' : nil}
+            Identity
+          %option{value:"counter", selected: @view['widget'].eql?('counter') ? 'yes' : nil}
+            Counter
+          %option{value:"graph", selected: @view['widget'].eql?('graph') ? 'yes' : nil}
+            Graph
+          %option{value:"histogram", selected: @view['widget'].eql?('histogram') ? 'yes' : nil}
+            Histogram
+          %option{value:"table", selected: @view['widget'].eql?('table') ? 'yes' : nil}
+            Table
+          %option{value:"custom", selected: @view['widget'].eql?('custom') ? 'yes' : nil}
+            Custom
+    .span4
+      %label.checkbox
+        %input{type:"checkbox", name:"do_reduce", value:"true", checked: @view['do_reduce'] ? 'yes' : nil}
+        Perform the reduce operation
+    .span4
+
+  .row-fluid
+    .span12
+      .well.actions
+        %a.btn{href:"/configuration/"}
+          %i.icon-chevron-left
+          Back
+
+        %a.btn{href:"#{@futon_url}database.html?alyzer/_design/alyzer_views/_view/#{@name}"}
+          Edit in Futon
+          %i.icon-external-link
+
+        %a.btn{href:"/visualization/#{@name}"}
+          View
+          %i.icon-dashboard
+
+        %a.btn.btn-danger{href:"delete"}
+          Delete
+          %i.icon-remove
+
+        %input.btn.btn-primary.pull-right{type:"submit", value:"Update"}
+
+
+
+- content_for(:js) do
+  %script{src: to_media("javascripts/codemirror.js")}
+  %script{src: to_media("javascripts/codemirror.javascript.js")}
+  %script{src: to_media("javascripts/configure.js")}

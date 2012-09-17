@@ -21,7 +21,9 @@
       %textarea{name: "adapter"}
         = @view['adapter']
   .row-fluid
-    .span4
+    .selector{rel: "adapter"}
+      %span
+        Use a built-in template instead:
       %label.select
         %select.input-small{name:"widget"}
           %option{value:"identity", selected: @view['widget'].eql?('identity') ? 'yes' : nil}
@@ -62,7 +64,6 @@
           %i.icon-remove
 
         %input.btn.btn-primary.pull-right{type:"submit", value:"Update"}
-
 
 
 - content_for(:js) do

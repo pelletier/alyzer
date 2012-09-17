@@ -154,7 +154,9 @@ class App < Sinatra::Base
     view[:map] = params[:map]
     view[:reduce] = params[:reduce]
     view[:adapter] = params[:adapter]
-    view[:widget] = params[:widget]
+    view[:template_map] = params[:template_map]
+    view[:template_reduce] = params[:template_reduce]
+    view[:template_adapter] = params[:template_adapter]
     view[:do_reduce] = (params[:do_reduce] == "true")
     views[params[:name]] = view
     doc[:views] = views
@@ -182,7 +184,9 @@ class App < Sinatra::Base
       reduce: "function(key, values, rereduce) {\n}",
       adapter: "function(data) {return data;}",
       do_reduce: false,
-      widget: "identity"
+      template_adapter: "identity",
+      template_map: "custom",
+      template_reduce: "custom"
     }
 
     @db.save_doc(views)

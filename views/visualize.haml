@@ -36,7 +36,7 @@
   :javascript
     function compute() {
         $("#placeholder").html("Please wait, loading...");
-        visualize("#{@view['widget']}", "#{@name}", #{@view['do_reduce']});
+        visualize("#{@name}", #{@view['do_reduce']});
     }
 
     $(document).ready(function(){

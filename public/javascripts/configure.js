@@ -54,7 +54,7 @@ function beautify() {
             var val = $(this).find("option:selected").val();
             if (val != "custom") {
                 editors[name].changed = true;
-                editors[name].setValue(snippets[val]);
+                editors[name].setValue(snippets[name][val]);
             }
         });
 
@@ -72,9 +72,22 @@ $(document).ready(function () {
         url: "/public/snippets.xml",
         dataType: "xml",
         success: function(xml) {
-            $(xml).find("snippet").each(function () {
-                var el = $(this);
-                snippets[el.attr('name')] = el.text();
+            $(xml).find("category").each(function () {
+                var categ = $(this);
+                var categ_name = categ.attr('name');
+                categ_snippets = {};
+                categ.find("snippet").each(function() {
+                    var el = $(this);
+                    var el_name = el.attr('name');
+                    categ_snippets[el_name] = el.text();
+                    $(".selector[rel="+categ_name+"] select").append($("<option>").val(el_name).text(el_name));
+                });
+                snippets[categ_name] = categ_snippets;
+            });
+
+            $(".selector select").each(function() {
+                var init_val = $(this).attr('data_init');
+                $(this).find("option[value="+init_val+"]").attr('selected', 'yes');
             });
         }
     });

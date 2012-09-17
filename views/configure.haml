@@ -21,22 +21,12 @@
       %textarea{name: "adapter"}
         = @view['adapter']
   .row-fluid
-    .selector{rel: "adapter"}
-      %span
-        Use a built-in template instead:
-      %label.select
-        %select.input-small{name:"widget"}
-          %option{value:"identity", selected: @view['widget'].eql?('identity') ? 'yes' : nil}
-            Identity
-          %option{value:"counter", selected: @view['widget'].eql?('counter') ? 'yes' : nil}
-            Counter
-          %option{value:"graph", selected: @view['widget'].eql?('graph') ? 'yes' : nil}
-            Graph
-          %option{value:"histogram", selected: @view['widget'].eql?('histogram') ? 'yes' : nil}
-            Histogram
-          %option{value:"table", selected: @view['widget'].eql?('table') ? 'yes' : nil}
-            Table
-          %option{value:"custom", selected: @view['widget'].eql?('custom') ? 'yes' : nil}
+    - ["adapter", "map", "reduce"].each do |val|
+      .selector{rel: val}
+        %span
+          Use a built-in template instead:
+        %select.input-small{name:"template_#{val}", data_init:@view["template_#{val}"]}
+          %option{value:"custom"}
             Custom
     .span4
       %label.checkbox

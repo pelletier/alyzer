@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <snippets>
 
-    <snippet name="table"><![CDATA[
+    <category name="map">
+        <snippet name="counter"><![CDATA[
+function(doc) {
+    if (doc.code == 500) {
+        emit("counter", 1);
+    }
+}]]></snippet>
+    </category>
+
+    <category name="reduce">
+        <snippet name="sum"><![CDATA[
+function(key, values, rereduce) {
+    return sum(values);
+}]]></snippet>
+    </category>
+
+    <category name="adapter">
+        <snippet name="table"><![CDATA[
 $("#placeholder").addClass('table');
 var table = $("<table/>").addClass('table table-bordered table-striped');
 table.append($("<thead/>").append($("<tr/>").append("<th>Key</th>").append("<th>Value</th>")));
@@ -11,7 +28,7 @@ for (var index = 0; index < rows.length; index++) {
 }
 $("#placeholder").html(table);]]></snippet>
 
-    <snippet name="histogram"><![CDATA[
+        <snippet name="histogram"><![CDATA[
 var data = [];
 for (var index = 0; index < rows.length; index++) {
     var item = rows[index];
@@ -31,12 +48,13 @@ $.plot($("#placeholder"), [data], {
     }
 });]]></snippet>
 
-    <snippet name="identity"><![CDATA[
+        <snippet name="identity"><![CDATA[
 return rows;]]></snippet>
 
-    <snippet name="counter"><![CDATA[
+        <snippet name="counter"><![CDATA[
 var value = rows[0]['value'];
 $("#placeholder").html(value);
 $("#placeholder").addClass('counter');]]></snippet>
 
+    </category>
 </snippets>

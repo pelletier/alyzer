@@ -1,5 +1,5 @@
 var visualize = (function() {
-    return (function(widget, name, reduce) {
+    return (function(name, reduce) {
         var params = {};
         if (reduce) {
             params['group_level'] = 1;
